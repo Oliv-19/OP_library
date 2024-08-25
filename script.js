@@ -1,45 +1,40 @@
-const dialog = document.querySelector("dialog");
-const showButton = document.getElementById("addBook");
-const closeButton = document.getElementById("close");
-const saveButton = document.getElementById("save");
 
-showButton.addEventListener("click", () => {
-  dialog.showModal();
-});
+let dialog = {
+  modal: document.querySelector("dialog"),
+  form: document.getElementById('form'),
+  closeButton: document.getElementById('close'),
+  showButton: document.getElementById('addBook'),
+  addListeners: function(){
+    this.showButton.addEventListener("click", ()=> this.modal.showModal());
+    this.closeButton.addEventListener("click", ()=> this.modal.close());
+    form.addEventListener('submit', (e)=> {
+          e.preventDefault()
+          form = document.getElementById('form')
+          let formData = new FormData(form)
+          console.log(formData.get('read'))
+          this.modal.close()
 
-closeButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  dialog.close();
-});
-
-
-
-
-let title = document.getElementById('title')
-let author = document.getElementById('author')
-let pages = document.getElementById('pages')
-let read = document.querySelector('input[name="read"]:checked');
-
-
-
-saveButton.addEventListener('click', ()=>{
-  // console.log(read.value)
-  addBookToLibrary(title.value, author.value, pages.value, read)
-  displayBook()
+          addBookToLibrary(formData)
+          displayBook()
+      })
+    
+  }
   
-})
+}
+
+dialog.addListeners()
 
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
+function Book(form) {
+    this.title = form.get('title')
+    this.author = form.get('author')
+    this.pages = form.get('pages')
+    this.read = form.get('read')
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    let newBook = new Book(title, author, pages, read)
+function addBookToLibrary(form) {
+    let newBook = new Book(form)
     myLibrary.push(newBook)
     // console.log(myLibrary)
 }
