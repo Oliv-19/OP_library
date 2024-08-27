@@ -2,8 +2,70 @@
     margin: 0;
     padding: 0;
     box-sizing: content-box;
+    /* outline: 1px solid red; */
 }
 
 svg{
     width: 30px;
+}
+
+nav{
+    background-color: rgb(231, 211, 187);
+    display: grid;
+    height: 10vh;
+    padding: 0 20px;
+    grid-template-columns: 80% 1fr 1fr;
+    justify-items: start;
+    align-items: center;
+}
+
+h1{
+    display: flex;
+    align-items: center;
+    font-size: xx-large;
+    gap: 5px;
+}
+.bookshelf{
+    width: 40px;
+    
+}
+.d_l_mode{
+    width: 20px;
+}
+
+nav > button{
+    padding: 10px 15px;
+    justify-self: center;
+    appearance: none;
+    border: none;
+    background-color:rgb(255, 255, 255);
+    border-radius: 8px;
+}
+nav > button:hover{
+    background-color: rgb(199, 169, 130);
+    color: white;
+    fill: white;
+    border: 2px solid white;
+}
+nav> button:active{
+    background-color: rgb(180, 144, 93);
+    color: white;
+    fill: white;
+    border: 2px solid white;
+}
+
+.bookDisplay{
+    height: 90vh;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    gap: 10px;
+    justify-items: center;
+}
+
+.book{
+    height: 50%;
+    width: 200px;
+    background-color: rgb(180, 144, 93);
 }
