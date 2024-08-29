@@ -4,21 +4,36 @@ let dialog = {
   form: document.getElementById('form'),
   closeButton: document.getElementById('close'),
   showButton: document.getElementById('addBook'),
+  exampleBtn: document.querySelector('.exampleBtn'),
   id: 0,
   addListeners: function(){
     this.showButton.addEventListener("click", ()=> this.modal.showModal());
     this.closeButton.addEventListener("click", ()=> this.modal.close());
-    form.addEventListener('submit', (e)=> {
-          e.preventDefault()
-          form = document.getElementById('form')
-          let formData = new FormData(form)
-          console.log(formData.get('read'))
-          this.modal.close()
-          
-          this.id++
-          createBook(formData, this.id)
-          
+    this.exampleBtn.addEventListener("click", ()=> {
+      let inputs= this.form.getElementsByTagName("input");
+      let elemsArr = Array.from(inputs)
+      elemsArr.forEach((val) => {
+        if(val.name=='read'){
+          val.checked
+          console.log(val)
+        } else{
+          val.value = val.placeholder.split(': ')[1]
+        }
       })
+      
+    });
+    form.addEventListener('submit', (e)=> {
+      e.preventDefault()
+      form = document.getElementById('form')
+      let formData = new FormData(form)
+      console.log(formData.get('read'))
+      this.modal.close()
+      this.form.reset()
+      
+      this.id++
+      createBook(formData, this.id)
+          
+    })
     
   }
   
@@ -54,12 +69,13 @@ function addBookToLibrary(newBook) {
 function delBook(b_id){
   let allBooks= document.querySelectorAll('.book')
   let myArray = Array.from(allBooks)
-  myLibrary.forEach((value, i) => {
+  myLibrary.find((value, i) => {
     
     if(value.book_id == b_id ){
       myLibrary.splice(i, 1)
 
     }
+    console.log(myLibrary)
   })
 
   myArray.find((value)=> {
@@ -97,6 +113,15 @@ let bookCard = {
       let b_read = this.createHtmlElems('button',book.read, 'b_read')
       let b_delete = this.createHtmlElems('button','Del', 'b_delete')
       
+      b_read.addEventListener('click', ()=> {
+        if(b_read.textContent== 'read'){
+          book.read = 'to be read'
+          b_read.textContent = book.read
+        } else{
+          book.read = 'read'
+          b_read.textContent= book.read
+        }
+      })
       b_delete.addEventListener('click', ()=> delBook(book.book_id))
 
       let htmlElems= [b_title, b_icon, b_author, b_pages, b_read, b_delete]
