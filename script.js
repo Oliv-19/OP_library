@@ -51,23 +51,55 @@ function addBookToLibrary(newBook) {
     // console.log(myLibrary)
 }
 
+function delBook(b_id){
+  let allBooks= document.querySelectorAll('.book')
+  let myArray = Array.from(allBooks)
+  myLibrary.forEach((value, i) => {
+    
+    if(value.book_id == b_id ){
+      myLibrary.splice(i, 1)
+
+    }
+  })
+
+  myArray.find((value)=> {
+    if (value.dataset.indexNumber == b_id){
+      value.remove()
+    }
+    
+  })
+
+
+}
+
 let bookCard = {
   bookContainer: document.querySelector('.bookDisplay'),
 
+  
+
   createHtmlElems:function (tagName, value, classId){
     elem= document.createElement(tagName)
-    elem.classname = classId
-    elem.textContent= value
+    elem.className = classId
+    if(tagName == 'img'){
+      elem.src = value
+    } else {
+      elem.textContent= value
+    }
+    
     return elem
   },
 
   htmlElems: function (book){
       let b_title = this.createHtmlElems('h3',book.title, 'b_title')
+      let b_icon = this.createHtmlElems('img',"https://images.freeimages.com/image/previews/4be/orange-book-icon-png-5694165.png?fmt=webp&h=350", 'b_icon')
       let b_author = this.createHtmlElems('h3',book.author, 'b_author')
       let b_pages = this.createHtmlElems('h3',book.pages, 'b_pages')
-      let b_read = this.createHtmlElems('h3',book.read, 'b_read')
+      let b_read = this.createHtmlElems('button',book.read, 'b_read')
+      let b_delete = this.createHtmlElems('button','Del', 'b_delete')
       
-      let htmlElems= [b_title, b_author, b_pages, b_read]
+      b_delete.addEventListener('click', ()=> delBook(book.book_id))
+
+      let htmlElems= [b_title, b_icon, b_author, b_pages, b_read, b_delete]
       
       return htmlElems
     },
@@ -77,21 +109,25 @@ let bookCard = {
     card.className= 'book'
     card.dataset.indexNumber = book.book_id ;
 
+
     this.htmlElems(book).forEach(elem => {
-      console.log(elem)
+      
       card.appendChild(elem)
+
+
     });
     //console.log(this.htmlElems(book))
     this.bookContainer.appendChild(card)
     
 
-  }
+  }, 
+
+  
 }
 
 function displayBook(book){
   console.log(book)
   bookCard.createCardElem(book)
- 
   
 
     // for (let i = 0; i < myLibrary.length; i++){
@@ -99,3 +135,7 @@ function displayBook(book){
     //     bookCard.createCardElem(myLibrary)
     // }
 }
+
+
+
+

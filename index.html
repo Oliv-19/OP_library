@@ -14,7 +14,7 @@
                 <path d="M9 3V18H12V3H9M12 5L16 18L19 17L15 4L12 5M5 5V18H8V5H5M3 19V21H21V19H3Z" />
             </svg>
         </h1>
-
+        
         <dialog>
             <form id="form" action="" method="dialog">
                 <h3>Add Book</h3>
@@ -25,16 +25,16 @@
                 <input name="author" id="author" type="text" placeholder="ej: J. K. Rowling">
                 
                 <label for="pages">Pages</label>
-                <input name="pages" id="pages" type="tel" placeholder="ej: 870">
+                <input name="pages" id="pages" type="number" placeholder="ej: 870">
                 
                 <label for="read">Read</label>
                 <input value="read" name="read" id="read" type="radio">
 
                 <label for="tbr">To be read</label>
-                <input value="tbr" name="read" id="tbr" type="radio">
+                <input value="to be read" name="read" id="tbr" type="radio">
 
                 <button name="btn_submit" value="save" id="save" type="submit">Save</button>
-                <button name="btn_close" id="close">Close</button>
+                <button type="button" name="btn_close" id="close">Close</button>
             </form>
         </dialog>
 
@@ -47,9 +47,9 @@
         </button>
     </nav>
     <div class="bookDisplay">
-
+        
     </div>
-
+    
     <script defer src="script.js"></script>
 </body>
 </html>
