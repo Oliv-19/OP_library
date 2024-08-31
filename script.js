@@ -69,7 +69,7 @@ function addBookToLibrary(newBook) {
 function delBook(b_id){
   let allBooks= document.querySelectorAll('.book')
   let myArray = Array.from(allBooks)
-  myLibrary.find((value, i) => {
+  myLibrary.forEach((value, i) => {
     
     if(value.book_id == b_id ){
       myLibrary.splice(i, 1)
@@ -142,7 +142,8 @@ let bookCard = {
 
     });
     //console.log(this.htmlElems(book))
-    this.bookContainer.appendChild(card)
+    this.bookContainer.prepend(card)
+    // this.bookContainer.appendChild(card)
     
 
   }, 
