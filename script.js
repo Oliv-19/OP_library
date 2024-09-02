@@ -8,7 +8,7 @@ let dialog = {
   id: 0,
   addListeners: function(){
     this.showButton.addEventListener("click", ()=> this.modal.showModal());
-    this.closeButton.addEventListener("click", ()=> this.modal.close());
+    this.closeButton.addEventListener("click", ()=> {this.modal.close(); this.form.reset()});
     this.exampleBtn.addEventListener("click", ()=> {
       let inputs= this.form.getElementsByTagName("input");
       let elemsArr = Array.from(inputs)

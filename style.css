@@ -3,35 +3,52 @@
     padding: 0;
     box-sizing: content-box;
     /* outline: 1px solid red; */
+    /*  */
+    
 }
-
+body{
+    overflow-x: hidden;
+    width: 100vw;
+}
 
 nav{
     background-color: rgb(231, 211, 187);
     display: grid;
     height: 10vh;
-    padding: 0 20px;
-    grid-template-columns: 80% 1fr 1fr;
+    /* padding: 0 20px; */
+    grid-template-columns: 1fr 1fr;
     justify-items: start;
     align-items: center;
     box-shadow: 1px 2px 5px rgb(128, 102, 67);
+    /* width: 100%; */
 }
 
 h1{
     display: flex;
     align-items: center;
-    font-size: xx-large;
+    font-size: 2em;
     gap: 5px;
+    padding: 0 20px; 
 }
 .bookshelf{
     width: 40px;
-    
+
 }
 .d_l_mode{
     width: 20px;
 }
+.btnsNav{
+    justify-self: end;
+    padding-right: 40px; 
+    display: flex;
+    /* gap: 10px; */
+    align-items: center;
+    height: 100%;
+    width: 200px;
+    justify-content: space-between;
+}
 
-button{
+button:not([class="exampleBtn"]){
     padding: 13px 15px;
     justify-self: center;
     appearance: none;
@@ -41,13 +58,13 @@ button{
     font-weight: bold;
     box-shadow: 1px 2px 4px rgb(128, 102, 67);
 }
-button:hover{
+button:not([class="exampleBtn"]):hover{
     background-color: rgb(199, 169, 130);
     color: white;
     fill: white;
     border: 2px solid white;
 }
-button:active{
+button:not([class="exampleBtn"]):active{
     background-color: rgb(180, 144, 93);
     color: white;
     fill: white;
@@ -77,8 +94,8 @@ form{
     width: 100%;
     gap: 5px;
     height: 100%;
-    
-    
+
+
 }
 form > h3{
     grid-area: 1/1/2/3;
@@ -88,12 +105,16 @@ form > h3{
 
 .exampleBtn{
     grid-area: 1/2/2/3;
-    justify-self: end;
-    padding: 4px 10px;
-
+    justify-self: center;
+    padding: 0;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
 }
 .rdBook{
-    width: 25px;
+    width: 40px;
 }
 
 
@@ -109,18 +130,6 @@ input:not([type='radio']){
     border: 2px solid transparent;
     box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;
     background: rgb(251, 251, 251);
-
-    
-    /* width: 100%;
-    color: rgb(36, 35, 42);
-    font-size: 16px; 
-    line-height: 20px;
-    min-height: 28px;*/
-    
-    
-    /* 
-     */
-
 }
 input:not([type='radio']):focus{
     outline: none;
@@ -139,7 +148,7 @@ input:not([type='radio']):focus{
 }
 #read, label[for='read']{
     grid-area: 5/1/6/2;
-    
+
 }
 #tbr, label[for='tbr']{
     grid-area: 5/2/6/3;
@@ -158,7 +167,7 @@ label:not(.readLabel){
     align-self: start;
     justify-self: center;
     grid-column: 1/2;
-    
+
 }
 
 .bookDisplay{
@@ -208,6 +217,6 @@ label:not(.readLabel){
     grid-area: 5/1/6/2;
 }
 .b_delete{
-    
+
     grid-area: 5/2/6/3;
 }
