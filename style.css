@@ -27,7 +27,7 @@ h1{
     width: 40px;
     
 }
-.d_l_mode, .rdBook{
+.d_l_mode{
     width: 20px;
 }
 
@@ -60,11 +60,12 @@ dialog{
     border: none;
     background-color: rgb(189, 166, 139);
     margin: auto;
-    width: 20%;
-    padding: 15px 30px;
+    min-width: clamp(270px, 25%, 25%);
+    /* width: 25%; */
+    /* padding: 15px 30px; */
     color: white;
-    border-radius:  10% 5%;
-    height: 55%;
+    border-radius:  15px ;
+    height: 60%;
 }
 
 form{
@@ -77,19 +78,29 @@ form{
     gap: 5px;
     height: 100%;
     
-}
-form > h3, .exampleBtn{
-    justify-self: end;
-}
-
-label:not(.readLabel){
-    align-self: start;
     
 }
+form > h3{
+    grid-area: 1/1/2/3;
+    justify-self: center;
+    font-size: 1.5em;
+}
+
+.exampleBtn{
+    grid-area: 1/2/2/3;
+    justify-self: end;
+    padding: 4px 10px;
+
+}
+.rdBook{
+    width: 25px;
+}
+
+
 
 input:not([type='radio']){
     align-self: end;
-    width: 100%;
+    /* width: 100%; */
     font-size: 1em;
     padding: 3px;
     justify-self: center;
@@ -143,6 +154,12 @@ label[for='read'], label[for='tbr']{
     height: 15px;
 }
 
+label:not(.readLabel){
+    align-self: start;
+    justify-self: center;
+    grid-column: 1/2;
+    
+}
 
 .bookDisplay{
     height: 90vh;
