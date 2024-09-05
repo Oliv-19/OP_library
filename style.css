@@ -2,25 +2,27 @@
     margin: 0;
     padding: 0;
     box-sizing: content-box;
-    /* outline: 1px solid red; */
-    /*  */
-    
+    --nav_color:rgb(58, 77, 57);
+    --dl_color:rgb(58, 77, 57);
+    --body_color:rgb(255, 248, 232);
+    --card_color:rgb(79, 111, 82);
+    --box_shadow:rgb(128, 102, 67);
 }
 body{
     overflow-x: hidden;
     width: 100vw;
+    background-color: var(--body_color);
+    color: white;
 }
 
 nav{
-    background-color: rgb(231, 211, 187);
+    background-color: var(--nav_color);
     display: grid;
     height: 10vh;
-    /* padding: 0 20px; */
     grid-template-columns: 1fr 1fr;
     justify-items: start;
     align-items: center;
-    box-shadow: 1px 2px 5px rgb(128, 102, 67);
-    /* width: 100%; */
+    box-shadow: 1px 2px 5px  var(--box_shadow);
 }
 
 h1{
@@ -31,6 +33,7 @@ h1{
     padding: 0 20px; 
 }
 .bookshelf{
+    fill: white;
     width: 40px;
 
 }
@@ -41,7 +44,6 @@ h1{
     justify-self: end;
     padding-right: 40px; 
     display: flex;
-    /* gap: 10px; */
     align-items: center;
     height: 100%;
     width: 200px;
@@ -59,13 +61,13 @@ button:not([class="exampleBtn"]){
     box-shadow: 1px 2px 4px rgb(128, 102, 67);
 }
 button:not([class="exampleBtn"]):hover{
-    background-color: rgb(199, 169, 130);
+    background-color: rgb(148, 173, 147);
     color: white;
     fill: white;
     border: 2px solid white;
 }
 button:not([class="exampleBtn"]):active{
-    background-color: rgb(180, 144, 93);
+    background-color: rgb(115, 144, 114);
     color: white;
     fill: white;
     border: 2px solid white;
@@ -75,11 +77,9 @@ button:not([class="exampleBtn"]):active{
 
 dialog{
     border: none;
-    background-color: rgb(189, 166, 139);
+    background-color: var(--dl_color);
     margin: auto;
     min-width: clamp(270px, 25%, 25%);
-    /* width: 25%; */
-    /* padding: 15px 30px; */
     color: white;
     border-radius:  15px ;
     height: 60%;
@@ -121,7 +121,6 @@ form > h3{
 
 input:not([type='radio']){
     align-self: end;
-    /* width: 100%; */
     font-size: 1em;
     padding: 3px;
     justify-self: center;
@@ -184,14 +183,15 @@ label:not(.readLabel){
     height: 90%;
     width: 200px;
     padding: 10px;
-    background-color: rgb(231, 211, 187);
+    background-color: var(--card_color);
     border-radius: 5px;
-    box-shadow: 5px 5px 5px rgb(128, 102, 67);
+    box-shadow: 5px 5px 5px var(--box_shadow);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 5fr 1fr 1fr 2fr;
     justify-items: center;
     align-items: center;
+
 }
 .b_title{
     grid-area: 1/1/2/3;
@@ -213,10 +213,19 @@ label:not(.readLabel){
     content: 'Pages: ';
 }
 .b_read{
-    /* padding: 10px 10px; */
     grid-area: 5/1/6/2;
 }
 .b_delete{
-
+    
+    height: 15px;
+    width: 15px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/10319/10319444.png');
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: contain;
     grid-area: 5/2/6/3;
+}
+.b_del_img{
+    
+    width: 20px;
 }

@@ -111,8 +111,8 @@ let bookCard = {
       let b_author = this.createHtmlElems('h3',book.author, 'b_author')
       let b_pages = this.createHtmlElems('h3',book.pages, 'b_pages')
       let b_read = this.createHtmlElems('button',book.read, 'b_read')
-      let b_delete = this.createHtmlElems('button','Del', 'b_delete')
-      
+      let b_delete = this.createHtmlElems('button','', 'b_delete')
+
       b_read.addEventListener('click', ()=> {
         if(b_read.textContent== 'read'){
           book.read = 'to be read'
