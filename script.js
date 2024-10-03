@@ -1,8 +1,10 @@
 
 
+myLibrary = [];
+
 
 class Book{
-  myLibrary = [];
+  
 
   constructor(form, id) {
     this.title = form.get('title')
@@ -13,25 +15,26 @@ class Book{
   }
 
   addBookToLibrary() {
-    this.myLibrary.push(this)
+    myLibrary.push(this)
     this.displayBook(this)
   }
 
   displayBook(book){
-    console.log(book)
-    bookCard.createCardElem(book)
+    //console.log(book)
+    let domBook =new DOMmanager
+    domBook.createCardElem(book)
   }
   
   static delBook(b_id){
     let allBooks= document.querySelectorAll('.book')
     let myArray = Array.from(allBooks)
-    Book.myLibrary.forEach((value, i) => {
+    myLibrary.forEach((value, i) => {
       
       if(value.book_id == b_id ){
-        Book.myLibrary.splice(i, 1)
+        myLibrary.splice(i, 1)
 
       }
-      console.log(Book.myLibrary)
+      //console.log(myLibrary)
     })
 
     myArray.find((value)=> {
@@ -46,19 +49,21 @@ class Book{
 
 // let formData = new FormData(dialog.form)
 // console.log(new book(formData, dialog.id))
-
-let dialog = {
-  modal: document.querySelector("dialog"),
-  form: document.getElementById('form'),
-  closeButton: document.getElementById('close'),
-  showButton: document.getElementById('addBook'),
-  exampleBtn: document.querySelector('.exampleBtn'),
-  id: 0,
-  addListeners: function(){
-    this.showButton.addEventListener("click", ()=> this.modal.showModal());
-    this.closeButton.addEventListener("click", ()=> {this.modal.close(); this.form.reset()});
-    this.exampleBtn.addEventListener("click", ()=> {
-      let inputs= this.form.getElementsByTagName("input");
+class dialog{
+  dialogOBJ = {
+      modal: document.querySelector("dialog"),
+      form: document.getElementById('form'),
+      closeButton: document.getElementById('close'),
+      showButton: document.getElementById('addBook'),
+      exampleBtn: document.querySelector('.exampleBtn'),
+      id: 0,
+  }
+  
+  addListeners(){
+    this.dialogOBJ.showButton.addEventListener("click", ()=> this.dialogOBJ.modal.showModal());
+    this.dialogOBJ.closeButton.addEventListener("click", ()=> {this.dialogOBJ.modal.close(); this.dialogOBJ.form.reset()});
+    this.dialogOBJ.exampleBtn.addEventListener("click", ()=> {
+      let inputs= this.dialogOBJ.form.getElementsByTagName("input");
       let elemsArr = Array.from(inputs)
       elemsArr.forEach((val) => {
         if(val.name=='read'){
@@ -70,25 +75,24 @@ let dialog = {
       })
       
     });
-    form.addEventListener('submit', (e)=> {
+
+    this.dialogOBJ.form.addEventListener('submit', (e)=> {
       e.preventDefault()
-      form = document.getElementById('form')
+      this.dialogOBJform = document.getElementById('form')
       let formData = new FormData(form)
       console.log(formData.get('read'))
-      this.modal.close()
-      this.form.reset()
+      this.dialogOBJ.modal.close()
+      this.dialogOBJ.form.reset()
       
-      this.id++
-      let newBook=new Book(formData, this.id)
+      this.dialogOBJ.id++
+      let newBook=new Book(formData, this.dialogOBJ.id)
       newBook.addBookToLibrary()
     })
     
   }
-  
 }
-
-
-dialog.addListeners()
+let dl = new dialog
+dl.addListeners()
 
 
 
@@ -101,17 +105,11 @@ dialog.addListeners()
 //}
 
 
-
-
-
-
-let bookCard = {
-  bookContainer: document.querySelector('.bookDisplay'),
-
+class DOMmanager{
+  bookContainer = document.querySelector('.bookDisplay')
   
-
-  createHtmlElems:function (tagName, value, classId){
-    elem= document.createElement(tagName)
+  createHtmlElems (tagName, value, classId){
+    let elem= document.createElement(tagName)
     elem.className = classId
     if(tagName == 'img'){
       elem.src = value
@@ -120,9 +118,9 @@ let bookCard = {
     }
     
     return elem
-  },
+  }
 
-  htmlElems: function (book){
+  htmlElems(book){
       let b_title = this.createHtmlElems('h3',book.title, 'b_title')
       let b_icon = this.createHtmlElems('img',"https://images.freeimages.com/image/previews/4be/orange-book-icon-png-5694165.png?fmt=webp&h=350", 'b_icon')
       let b_author = this.createHtmlElems('h3',book.author, 'b_author')
@@ -144,9 +142,9 @@ let bookCard = {
       let htmlElems= [b_title, b_icon, b_author, b_pages, b_read, b_delete]
       
       return htmlElems
-    },
+    }
 
-  createCardElem: function(book){
+  createCardElem(book){
     let card = document.createElement('div');
     card.className= 'book'
     card.dataset.indexNumber = book.book_id ;
@@ -161,12 +159,12 @@ let bookCard = {
     //console.log(this.htmlElems(book))
     this.bookContainer.prepend(card)
     // this.bookContainer.appendChild(card)
-    
-
-  }, 
-
-  
+  }
 }
+
+
+
+
 
 
 
