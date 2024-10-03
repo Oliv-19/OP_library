@@ -4,8 +4,6 @@ myLibrary = [];
 
 
 class Book{
-  
-
   constructor(form, id) {
     this.title = form.get('title')
     this.author = form.get('author')
@@ -21,7 +19,7 @@ class Book{
 
   displayBook(book){
     //console.log(book)
-    let domBook =new DOMmanager
+    let domBook =new CreateCards
     domBook.createCardElem(book)
   }
   
@@ -47,51 +45,56 @@ class Book{
   }
 }
 
-// let formData = new FormData(dialog.form)
-// console.log(new book(formData, dialog.id))
-class dialog{
-  dialogOBJ = {
-      modal: document.querySelector("dialog"),
-      form: document.getElementById('form'),
-      closeButton: document.getElementById('close'),
-      showButton: document.getElementById('addBook'),
-      exampleBtn: document.querySelector('.exampleBtn'),
-      id: 0,
-  }
-  
-  addListeners(){
-    this.dialogOBJ.showButton.addEventListener("click", ()=> this.dialogOBJ.modal.showModal());
-    this.dialogOBJ.closeButton.addEventListener("click", ()=> {this.dialogOBJ.modal.close(); this.dialogOBJ.form.reset()});
-    this.dialogOBJ.exampleBtn.addEventListener("click", ()=> {
-      let inputs= this.dialogOBJ.form.getElementsByTagName("input");
-      let elemsArr = Array.from(inputs)
-      elemsArr.forEach((val) => {
-        if(val.name=='read'){
-          val.checked
-          console.log(val)
-        } else{
-          val.value = val.placeholder.split(': ')[1]
-        }
-      })
-      
-    });
 
-    this.dialogOBJ.form.addEventListener('submit', (e)=> {
+
+
+class DOMmanager{
+  nav= document.querySelector('nav')
+  modal= this.nav.children[1]
+  form= this.modal.children[0]
+  showButton= this.nav.children[2].children[0]
+
+  closeButton= this.form.children.namedItem('close')
+  exampleBtn= this.form.children.namedItem('exampleBtn')
+  id= 0
+  getExample(){
+    let inputs= this.form.getElementsByTagName("input");
+    let elemsArr = Array.from(inputs)
+
+    elemsArr.forEach((val) => {
+      if(val.name=='read'){
+        val.checked
+        console.log(val)
+      } else{
+        val.value = val.placeholder.split(': ')[1]
+      }
+    })
+  }
+
+  formManager(e){
       e.preventDefault()
-      this.dialogOBJform = document.getElementById('form')
+      this.form = document.getElementById('form')
       let formData = new FormData(form)
       console.log(formData.get('read'))
-      this.dialogOBJ.modal.close()
-      this.dialogOBJ.form.reset()
+      this.modal.close()
+      this.form.reset()
       
-      this.dialogOBJ.id++
-      let newBook=new Book(formData, this.dialogOBJ.id)
+      this.id++
+      let newBook=new Book(formData, this.id)
       newBook.addBookToLibrary()
-    })
+  }
+  addListeners(){
+    console.log()
+
+    this.showButton.addEventListener("click", ()=> this.modal.showModal());
+    this.closeButton.addEventListener("click", ()=> {this.modal.close(); this.form.reset()});
+    this.exampleBtn.addEventListener("click", ()=> {this.getExample()});
+
+    this.form.addEventListener('submit', (e)=> {this.formManager(e)})
     
   }
 }
-let dl = new dialog
+let dl = new DOMmanager
 dl.addListeners()
 
 
@@ -105,7 +108,7 @@ dl.addListeners()
 //}
 
 
-class DOMmanager{
+class CreateCards{
   bookContainer = document.querySelector('.bookDisplay')
   
   createHtmlElems (tagName, value, classId){
