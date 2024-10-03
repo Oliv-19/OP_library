@@ -1,4 +1,52 @@
 
+
+
+class Book{
+  myLibrary = [];
+
+  constructor(form, id) {
+    this.title = form.get('title')
+    this.author = form.get('author')
+    this.pages = form.get('pages')
+    this.read = form.get('read')
+    this.book_id = id
+  }
+
+  addBookToLibrary() {
+    this.myLibrary.push(this)
+    this.displayBook(this)
+  }
+
+  displayBook(book){
+    console.log(book)
+    bookCard.createCardElem(book)
+  }
+  
+  static delBook(b_id){
+    let allBooks= document.querySelectorAll('.book')
+    let myArray = Array.from(allBooks)
+    Book.myLibrary.forEach((value, i) => {
+      
+      if(value.book_id == b_id ){
+        Book.myLibrary.splice(i, 1)
+
+      }
+      console.log(Book.myLibrary)
+    })
+
+    myArray.find((value)=> {
+      if (value.dataset.indexNumber == b_id){
+        value.remove()
+      }
+      
+    })
+
+  }
+}
+
+// let formData = new FormData(dialog.form)
+// console.log(new book(formData, dialog.id))
+
 let dialog = {
   modal: document.querySelector("dialog"),
   form: document.getElementById('form'),
@@ -31,8 +79,8 @@ let dialog = {
       this.form.reset()
       
       this.id++
-      createBook(formData, this.id)
-          
+      let newBook=new Book(formData, this.id)
+      newBook.addBookToLibrary()
     })
     
   }
@@ -40,53 +88,22 @@ let dialog = {
 }
 
 
-
 dialog.addListeners()
 
-let myLibrary = [];
-
-function Book(form, id) {
-    this.title = form.get('title')
-    this.author = form.get('author')
-    this.pages = form.get('pages')
-    this.read = form.get('read')
-    this.book_id = id
-
-}
-
-function createBook(form, id){
-  let newBook = new Book(form, id)
-  addBookToLibrary(newBook)
-}
 
 
-function addBookToLibrary(newBook) {
-    myLibrary.push(newBook)
-    displayBook(newBook)
-    // console.log(myLibrary)
-}
-
-function delBook(b_id){
-  let allBooks= document.querySelectorAll('.book')
-  let myArray = Array.from(allBooks)
-  myLibrary.forEach((value, i) => {
-    
-    if(value.book_id == b_id ){
-      myLibrary.splice(i, 1)
-
-    }
-    console.log(myLibrary)
-  })
-
-  myArray.find((value)=> {
-    if (value.dataset.indexNumber == b_id){
-      value.remove()
-    }
-    
-  })
 
 
-}
+
+  // createBook(form, id){
+  // let newBook = new Book(form, id)
+  // addBookToLibrary(newBook)
+//}
+
+
+
+
+
 
 let bookCard = {
   bookContainer: document.querySelector('.bookDisplay'),
@@ -114,15 +131,15 @@ let bookCard = {
       let b_delete = this.createHtmlElems('button','', 'b_delete')
 
       b_read.addEventListener('click', ()=> {
-        if(b_read.textContent== 'read'){
-          book.read = 'to be read'
+        if(b_read.textContent== 'Read'){
+          book.read = 'To be read'
           b_read.textContent = book.read
         } else{
-          book.read = 'read'
+          book.read = 'Read'
           b_read.textContent= book.read
         }
       })
-      b_delete.addEventListener('click', ()=> delBook(book.book_id))
+      b_delete.addEventListener('click', ()=> Book.delBook(book.book_id))
 
       let htmlElems= [b_title, b_icon, b_author, b_pages, b_read, b_delete]
       
@@ -151,16 +168,7 @@ let bookCard = {
   
 }
 
-function displayBook(book){
-  console.log(book)
-  bookCard.createCardElem(book)
-  
 
-    // for (let i = 0; i < myLibrary.length; i++){
-    //     console.log(myLibrary)
-    //     bookCard.createCardElem(myLibrary)
-    // }
-}
 
 
 
